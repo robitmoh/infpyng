@@ -8,7 +8,6 @@ import sys
 def init_logger(logfile):
     # disable log messages from polling2 library
     logging.getLogger('polling2').setLevel(logging.WARNING)
-
     logger = logging.getLogger()
     handler = logging.FileHandler(logfile)
     formatter = logging.Formatter(
@@ -16,8 +15,11 @@ def init_logger(logfile):
         '%Y-%m-%d %H:%M:%S')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
 
+def setLevel(level):
+    logger = logging.getLogger()
+    logger.setLevel(level)
 
 def debug(msg):
     logger = logging.getLogger()

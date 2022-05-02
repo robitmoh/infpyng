@@ -8,7 +8,7 @@ version = "1.0.2"
 ## Set path for the log file, by defaut log file will be created in
 ## current directory
 #path = "/var/log/infpyng.log"
-
+level="ERROR"
 
 [influxdb]
 ## Hostname to connect to InfluxDB, defaults to 'localhost'

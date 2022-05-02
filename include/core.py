@@ -101,6 +101,8 @@ class Infpyng:
             os.chmod(self.logfile, 0o644)
             # init logging
             log.init_logger(self.logfile)
+            if 'level' in logs:
+               log.setLevel(str(logs['level']))
         else:
             log.error(':: No config file found...exiting')
             log.eprint(':: Infpyng :: No config file found...exiting')
