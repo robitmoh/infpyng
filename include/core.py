@@ -150,38 +150,43 @@ class Infpyng:
             [host, s_1] = line.split(" : ")
             # host is alive
             if s_1.find(',') != -1:
-                [stats, ping] = s_1.split(", ")
-                # get packet loss %
-                [_, s_2] = stats.split(" = ")
-                [sent, recv, loss] = s_2.split("/")
-                # get latency
-                [_, s_3] = ping.split(" = ")
-                [min_, avg, max_] = s_3.split("/")
+                try:
+                    try:
+                        [stats, ping] = s_1.split(", ")
+                        # get packet loss %
+                        [_, s_2] = stats.split(" = ")
+                        [sent, recv, loss] = s_2.split("/")
+                        # get latency
+                        [_, s_3] = ping.split(" = ")
+                        [min_, avg, max_] = s_3.split("/")
+                    except Exception as s:
+                        log.error ('fping format error %s : %s', s, s_1)
+                    # if tags is set
+                    if self.dictags.get(host.strip()) is not None:
+                        item = self.dictags.get(host.strip()).items()
+                        tags = ',' + ','.join(f'{key}={value}'
+                                              for key, value in item)
+                    else:
+                        tags = ''
 
-                # if tags is set
-                if self.dictags.get(host.strip()) is not None:
-                    item = self.dictags.get(host.strip()).items()
-                    tags = ',' + ','.join(f'{key}={value}'
-                                          for key, value in item)
-                else:
-                    tags = ''
-
-                # prepare output for influxdb
-                influx_output = (
-                    'infpyng,host=' + socket.gethostname() +
-                    ',target=' + host.strip() +
-                    tags +
-                    ' average_response_ms=' + avg +
-                    ',maximum_response_ms=' + max_ +
-                    ',minimum_response_ms=' + min_ +
-                    ',packets_received=' + recv + 'i' +
-                    ',packets_transmitted=' + sent + 'i' +
-                    ',percent_packet_loss=' + loss.strip('%') + ' ' +
-                    timestamp)
-                # list with all alive hosts
-                self.alive.append(host.strip())
-                # final output formated for influx
-                self.result.append('\n' + influx_output)
+                    # prepare output for influxdb
+                    influx_output = (
+                        'infpyng,host=' + socket.gethostname() +
+                        ',target=' + host.strip() +
+                        tags +
+                        ' average_response_ms=' + avg +
+                        ',maximum_response_ms=' + max_ +
+                        ',minimum_response_ms=' + min_ +
+                        ',packets_received=' + recv + 'i' +
+                        ',packets_transmitted=' + sent + 'i' +
+                        ',percent_packet_loss=' + loss.strip('%') + ' ' +
+                        timestamp)
+                    # list with all alive hosts
+                    self.alive.append(host.strip())
+                    # final output formated for influx
+                    self.result.append('\n' + influx_output)
+                except:
+                    log.error("Ping data error") 
 
     def find_keys(self, node, kv):
         """

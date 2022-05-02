@@ -2,6 +2,7 @@
 name = "Infpyng Config"
 description = "Infpyng can ping multiple hosts at once and write data to InfluxDB"
 version = "1.0.2"
+version = "1.0.3"
 
 
 [logging]
