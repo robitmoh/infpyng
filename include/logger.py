@@ -2,14 +2,16 @@
 
 from __future__ import print_function
 import logging
+from logging.handlers import RotatingFileHandler
 import sys
 
 
-def init_logger(logfile):
+def init_logger(logfile,maxBytes,backupCount):
     # disable log messages from polling2 library
     logging.getLogger('polling2').setLevel(logging.WARNING)
     logger = logging.getLogger()
-    handler = logging.FileHandler(logfile)
+    #handler = logging.FileHandler(logfile)
+    handler = RotatingFileHandler(logfile, maxBytes=maxBytes, backupCount=backupCount )
     formatter = logging.Formatter(
         '%(asctime)-s %(name)-4s %(levelname)-4s %(message)s',
         '%Y-%m-%d %H:%M:%S')

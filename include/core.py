@@ -37,6 +37,8 @@ class Infpyng:
     result = []
     # list of hots alive
     alive = []
+    maxBytes = 1024000
+    backupCount =1
 
     def __init__(self):
         # set path where script is running
@@ -94,14 +96,17 @@ class Infpyng:
             logs = self.config['logging']
             if 'path' in logs:
                 self.logfile = str(logs['path'])
+            if 'maxBytes' in logs:
+                self.maxBytes = int(logs['maxBytes'])
+            if 'backupCount' in logs:
+                self.backupCount = int(logs['backupCount'])
             # create file if it's not exist
             file_exists = os.path.isfile(self.logfile)
             if not file_exists:
                 with open(self.logfile, 'a'): pass
             os.chmod(self.logfile, 0o644)
             # init logging
-            log.init_logger(self.logfile)
-            log.setLevel(str('WARNING'))
+            log.init_logger(self.logfile,self.maxBytes, self.backupCount)
             if 'level' in logs:
                log.setLevel(str(logs['level']))
         else:
