@@ -101,6 +101,7 @@ class Infpyng:
             os.chmod(self.logfile, 0o644)
             # init logging
             log.init_logger(self.logfile)
+            log.setLevel(str('WARNING'))
             if 'level' in logs:
                log.setLevel(str(logs['level']))
         else:
@@ -307,12 +308,15 @@ class Influx:
 
             self.influxdb_client.switch_database(
                 self.dbname)  # Switch to if does exist.
-            self.influxdb_client.create_retention_policy(  # Create retention
-                self.retention_name,
-                self.retention_duration,
-                self.replication,
-                default=True,
-                shard_duration=self.shard_duration)
+            try:
+                self.influxdb_client.create_retention_policy(  # Create retention
+                    self.retention_name,
+                    self.retention_duration,
+                    self.replication,
+                    default=True,
+                    shard_duration=self.shard_duration)
+            except Exception as s:
+                log.warning(str(s))
 
             return self.influxdb_client
 
