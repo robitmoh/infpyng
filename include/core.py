@@ -16,6 +16,7 @@ import toml
 
 import include.logger as log
 
+import ipaddress
 
 class Infpyng:
     # set version of script
@@ -126,12 +127,23 @@ class Infpyng:
 
         # set list for all targets
         all_targets = []
+        list2d=[]
         # loop in all file to find value(s) of 'hosts' keys
         for toml_file in toml_files:
             targets = toml.load(toml_file)
+            # Hosts 
             list2d = self.find_keys(targets, 'hosts')
             all_targets = list(list2d) + all_targets
-
+            # Networks
+            AllNetworks = list(self.find_keys(targets, 'networks'))
+            for network in AllNetworks:
+                for net in network:
+                    net4 = ipaddress.ip_network(net)
+                    net_hosts= list()
+                    for host_ip in net4.hosts():
+                        net_hosts.append((str(host_ip)))
+                    all_targets.append(list(net_hosts)) 
+            # Tags
             # set dict with paired host -> tags
             items = (item for item in targets['targets'])
             for item in items:
@@ -142,7 +154,6 @@ class Infpyng:
         # make flat list out of list of lists
         # --> https://stackoverflow.com/a/39493960
         all_targets = reduce(operator.concat, all_targets)
-
         return all_targets
 
     def inf_parse(self, data, timestamp):
