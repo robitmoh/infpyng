@@ -111,10 +111,10 @@ Use with docker-compose:
 	    container_name: Infpyng
 	    environment:
 	         - ENV_NETWORKS="10.0.1.0/24", "10.0.2.0/24"
-	         - ENV_TAGS=head = 'e6k'
+	         - ENV_TAGS=city = 'MyCity'
 	         #- ENV_CONFIG_log_path="stdout"
 	         #- ENV_CONFIG_log_level="INFO"
-	         - ENV_CONFIG_hostname="192.168.254.219"
+	         - ENV_CONFIG_hostname="influxdb"
 	         #- ENV_CONFIG_port=8086
 	         #- ENV_CONFIG_dbname="snmp"
 	         #- ENV_CONFIG_retention_name="week"
