@@ -132,9 +132,7 @@ Use with docker-compose:
 	    restart: always
 	    volumes:
 	       - /infpyng/config
-	```
-
-
+```
   
 ### Github usage  
 
