@@ -11,7 +11,11 @@ def init_logger(logfile,maxBytes,backupCount):
     logging.getLogger('polling2').setLevel(logging.WARNING)
     logger = logging.getLogger()
     #handler = logging.FileHandler(logfile)
-    handler = RotatingFileHandler(logfile, maxBytes=maxBytes, backupCount=backupCount )
+    if logfile =='stdout' :
+        handler = logging.StreamHandler(sys.stdout)
+    else:
+        handler = RotatingFileHandler(logfile, maxBytes=maxBytes, backupCount=backupCount )
+    
     formatter = logging.Formatter(
         '%(asctime)-s %(name)-4s %(levelname)-4s %(message)s',
         '%Y-%m-%d %H:%M:%S')
