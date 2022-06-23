@@ -97,6 +97,45 @@ Multi-container Docker app built from the following services:
 * [Grafana](https://github.com/grafana/grafana) - visualization UI for InfluxDB
 
 Useful for quickly setting up a monitoring stack for performance testing. Please refer to this link  [Infpyng-stack](https://github.com/oijkn/infpyng/tree/master/infpyng-stack) to create a performance testing environment in minutes.
+
+Generate config from docker environments with default values.
+Generate hosts / networks from environments
+
+Use with docker-compose:
+
+  `# version: "3"`
+  `#`
+  `#services:`
+  `#  infpyng:`
+  `#    image: "robitmoh/infpyng:latest"`
+  `#    build:`
+  `#      context: ../`
+  `#      dockerfile: docker/Dockerfile`
+  `#    container_name: Infpyng`
+  `#    environment:`
+  `#         - ENV_NETWORKS="10.0.1.0/24", "10.0.2.0/24"`
+  `#         - ENV_TAGS=head = 'e6k'`
+  `#         #- ENV_CONFIG_log_path="stdout"`
+  `#         #- ENV_CONFIG_log_level="INFO"`
+  `#         - ENV_CONFIG_hostname="192.168.254.219"`
+  `#         #- ENV_CONFIG_port=8086`
+  `#         #- ENV_CONFIG_dbname="snmp"`
+  `#         #- ENV_CONFIG_retention_name="week"`
+  `#         #- ENV_CONFIG_retention_duration="1w"`
+  `#         #- ENV_CONFIG_replication=1`
+  `#         #- ENV_CONFIG_shard_duration="1w"`
+  `#         #- ENV_CONFIG_poll=60`
+  `#         #- ENV_CONFIG_count=1`
+  `#         #- ENV_CONFIG_interval=10`
+  `#         #- ENV_CONFIG_period=1000`
+  `#         #- ENV_CONFIG_timeout=500`
+  `#         #- ENV_CONFIG_backoff=1.5`
+  `#         #- ENV_CONFIG_retry=3`
+  `#         #- ENV_CONFIG_tos=0`
+  `#    restart: always`
+  `#    volumes:`
+  `#       - /infpyng/config`
+  
   
 ### Github usage  
 
