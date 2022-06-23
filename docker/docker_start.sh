@@ -30,7 +30,7 @@ echo $ENV_NETWORKS
 echo $ENV_TAGS
 
 #/usr/bin/envsubst < ../config/config.env >../config/config.toml
-/usr/bin/envsubst < /infpyng/config/config.env >/infpyng/config/config.toml
-/usr/bin/envsubst < /infpyng/config/hosts.env >/infpyng/config/hosts_env.toml
+/usr/bin/envsubst < /infpyng/docker/config/config.env >/infpyng/config/config.toml
+/usr/bin/envsubst < /infpyng/docker/config/hosts.env >/infpyng/config/hosts_env.toml
 exec /usr/local/bin/python ./infpyng.py
 

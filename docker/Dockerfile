@@ -16,7 +16,7 @@ FROM base
 COPY --from=builder /install /usr/local
 COPY include/ /infpyng/include/
 COPY infpyng.py /infpyng/
-COPY docker/config/ /infpyng/config/
+COPY docker/config/ /infpyng/docker/config/
 copy docker/docker_start.sh /infpyng/docker_start.sh
 RUN  chmod 755 /infpyng/docker_start.sh
 WORKDIR /infpyng
