@@ -1,6 +1,7 @@
 [config]
 name = "Infpyng Config"
 description = "Infpyng can ping multiple hosts at once and write data to InfluxDB"
+version = "1.0.2"
 version = "1.0.3"
 
 
@@ -8,43 +9,41 @@ version = "1.0.3"
 ## Set path for the log file, by defaut log file will be created in
 ## current directory
 #path = "/var/log/infpyng.log"
-path='stdout'
-level='ERROR'
+path = "stdout"
+level="INFO"
 # Max size the log file in bytes
-
-maxBytes = 1024000
+#maxBytes = 1024000 
 
 # Max rolloved log file
-backupCount = 1
-
+#backupCount = 1
 
 [influxdb]
 ## Hostname to connect to InfluxDB, defaults to 'localhost'
-hostname = localhost
+hostname = 'localhost'
 
 ## Port to connect to InfluxDB, defaults to 8086
-port =  8086
+port = 8086
 
 ## Database name to connect to InfluxDB
-dbname =  'infpyng'
+dbname = 'infpyng'
 
 ## Retention policy
-retention_name =  'week'
-retention_duration =  '1w'
-replication =  1
-shard_duration = '1w'
+retention_name = 'one_year'
+retention_duration = '52w'
+replication = 1
+shard_duration = '4w'
 
 
 [options]
 ## Polling interval in seconds (default is 60s)
-poll = 60
+poll = 300
 
 ## Number of request packets to send to each target (default is 1 packet)
-#count = 5
-count = 1
+count = 5
+
 ## The minimum amount of time in milliseconds between sending a ping packet
 ## to any target (default is 10ms, minimum is 1ms)
-interval = 10
+# interval = 100
 
 ## this parameter sets the time in milliseconds that fping waits between
 ## successive packets to an individual target. Default is 1000 and minimum is 10.
@@ -52,16 +51,16 @@ interval = 10
 period = 1000
 
 ## The time to wait for a ping response in milliseconds (default is 500ms)
-timeout = 500
+timeout = 1000
 
 ## Backoff factor, this parameter is the value by which the wait time (-t) is
 ## multiplied on each successive request; it must be entered as a
 ## floating-point number (x.y). The default is 1.5.
-backoff = 1.5
+backoff = 1.0
 
 ## Retry limit (default 3). This is the number of times an attempt at pinging
 ## a target will be made, not including the first try.
-retry = 3
+retry = 2
 
 ## Set the typ of service flag ( TOS ). N can be either decimal or
 ## hexadecimal (0xh) format.

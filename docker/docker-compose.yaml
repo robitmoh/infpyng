@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  infpyng:
+    image: "robitmoh/infpyng:latest"
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    container_name: Infpyng
+    environment:
+         - ENV_NETWORKS="10.0.1.0/24", "10.0.2.0/24"
+         - ENV_TAGS=head = 'e6k'
+         #- ENV_CONFIG_log_path="stdout"
+         #- ENV_CONFIG_log_level="INFO"
+         - ENV_CONFIG_hostname="192.168.254.219"
+         #- ENV_CONFIG_port=8086
+         #- ENV_CONFIG_dbname="snmp"
+         #- ENV_CONFIG_retention_name="week"
+         #- ENV_CONFIG_retention_duration="1w"
+         #- ENV_CONFIG_replication=1
+         #- ENV_CONFIG_shard_duration="1w"
+         #- ENV_CONFIG_poll=60
+         #- ENV_CONFIG_count=1
+         #- ENV_CONFIG_interval=10
+         #- ENV_CONFIG_period=1000
+         #- ENV_CONFIG_timeout=500
+         #- ENV_CONFIG_backoff=1.5
+         #- ENV_CONFIG_retry=3
+         #- ENV_CONFIG_tos=0
+    restart: always
+    volumes:
+       - /infpyng/config
+
+

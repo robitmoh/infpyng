@@ -1,0 +1,9 @@
+[[targets]]
+  hosts = [
+    ]
+  networks = [
+    ]
+  [targets.tags]
+#     country = 'fivan'
+#     server = 'cm'
+
